@@ -1,0 +1,11 @@
+{
+  "appId": "com.deepseek.agent",
+  "appName": "DeepSeek Agent",
+  "webDir": "www",
+  "android": {
+    "allowMixedContent": true
+  },
+  "server": {
+    "androidScheme": "https"
+  }
+}

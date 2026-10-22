@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="auto">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, maximum-scale=1.0, user-scalable=no" />
+  <meta name="theme-color" content="#0f172a" />
+  <title>DeepSeek Agent</title>
+  <link id="hljs-light" rel="stylesheet" href="vendor/hljs-light.css" />
+  <link id="hljs-dark" rel="stylesheet" href="vendor/hljs-dark.css" disabled />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <!-- 侧边栏遮罩(移动端) -->
+  <div id="sidebar-backdrop" class="backdrop" hidden></div>
+
+  <!-- 侧边栏 -->
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-head">
+      <span class="app-name">🤖 DeepSeek Agent</span>
+      <button id="btn-new-chat" class="btn btn-primary btn-block" title="新建对话">＋ 新建对话</button>
+    </div>
+    <nav id="conv-list" class="conv-list" aria-label="会话列表"></nav>
+    <div class="sidebar-foot">
+      <button id="btn-export-all" class="btn btn-ghost btn-block">⬇ 导出全部对话</button>
+    </div>
+  </aside>
+
+  <!-- 主区域 -->
+  <main class="main">
+    <header class="topbar">
+      <button id="btn-menu" class="icon-btn" title="菜单" aria-label="打开菜单">☰</button>
+      <h1 id="chat-title" class="chat-title">新对话</h1>
+      <div class="topbar-actions">
+        <button id="btn-export" class="icon-btn" title="导出当前对话" aria-label="导出">⬇</button>
+        <button id="btn-theme" class="icon-btn" title="切换主题" aria-label="切换主题">🌓</button>
+        <button id="btn-settings" class="icon-btn" title="设置" aria-label="设置">⚙</button>
+      </div>
+    </header>
+
+    <div id="messages" class="messages">
+      <div id="empty-state" class="empty-state">
+        <div class="empty-icon">💬</div>
+        <h2>开始对话</h2>
+        <p>在下方输入消息,或先在设置里填入 API 配置</p>
+        <button id="btn-go-settings" class="btn btn-primary">去配置 API</button>
+      </div>
+    </div>
+
+    <div id="composer" class="composer">
+      <div class="composer-row">
+        <button id="btn-voice" class="icon-btn voice-btn" title="语音输入" aria-label="语音输入">🎤</button>
+        <textarea id="input" class="input" rows="1" placeholder="输入消息…(Enter 发送,Shift+Enter 换行)" aria-label="消息输入"></textarea>
+        <button id="btn-send" class="icon-btn send-btn" title="发送" aria-label="发送">➤</button>
+      </div>
+      <div class="composer-hint" id="composer-hint"></div>
+    </div>
+  </main>
+
+  <!-- 设置弹窗 -->
+  <div id="settings-backdrop" class="backdrop" hidden></div>
+  <div id="settings-modal" class="modal" hidden role="dialog" aria-modal="true" aria-labelledby="settings-title">
+    <div class="modal-head">
+      <h2 id="settings-title">API 设置</h2>
+      <button id="btn-close-settings" class="icon-btn" aria-label="关闭">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="field">
+        <label for="set-base-url">Base URL</label>
+        <input id="set-base-url" type="text" placeholder="https://api.deepseek.com" autocomplete="off" />
+        <div class="presets">
+          <span class="preset-label">预设:</span>
+          <button class="chip" data-preset="deepseek">DeepSeek 官方</button>
+          <button class="chip" data-preset="deepseek-v1">DeepSeek 官方(v1)</button>
+        </div>
+      </div>
+      <div class="field">
+        <label for="set-api-key">API Key</label>
+        <input id="set-api-key" type="password" placeholder="sk-..." autocomplete="off" />
+        <button id="btn-toggle-key" class="chip" type="button">👁 显示</button>
+      </div>
+      <div class="field">
+        <label for="set-model">模型名称</label>
+        <input id="set-model" type="text" placeholder="deepseek-chat" autocomplete="off" />
+        <div class="presets">
+          <span class="preset-label">预设:</span>
+          <button class="chip" data-model="deepseek-chat">deepseek-chat (V3)</button>
+          <button class="chip" data-model="deepseek-reasoner">deepseek-reasoner (R1)</button>
+        </div>
+      </div>
+      <div class="field">
+        <label for="set-temperature">温度 <span id="temp-val" class="temp-val">0.7</span></label>
+        <input id="set-temperature" type="range" min="0" max="2" step="0.1" value="0.7" />
+      </div>
+      <div class="field">
+        <label for="set-max-tokens">最大输出长度 (max_tokens)</label>
+        <input id="set-max-tokens" type="number" min="1" max="100000" step="1" placeholder="4096" />
+      </div>
+      <div class="field">
+        <label for="set-system">系统提示词 (System Prompt)</label>
+        <textarea id="set-system" rows="4" placeholder="你是一个乐于助人的助手。"></textarea>
+      </div>
+      <div class="modal-actions">
+        <button id="btn-test" class="btn btn-ghost">测试连接</button>
+        <button id="btn-save-settings" class="btn btn-primary">保存</button>
+      </div>
+      <div id="test-result" class="test-result" hidden></div>
+    </div>
+  </div>
+
+  <!-- Toast -->
+  <div id="toast" class="toast" hidden></div>
+
+  <!-- vendor 依赖 -->
+  <script src="vendor/native-bridge.js"></script>
+  <script src="vendor/marked.min.js"></script>
+  <script src="vendor/highlight.min.js"></script>
+  <!-- app -->
+  <script src="js/storage.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/markdown.js"></script>
+  <script src="js/voice.js"></script>
+  <script src="js/chat.js"></script>
+  <script src="js/settings.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

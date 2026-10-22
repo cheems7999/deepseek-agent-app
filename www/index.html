@@ -83,6 +83,7 @@
         <input id="set-model" type="text" placeholder="deepseek-chat" autocomplete="off" />
         <div class="presets">
           <span class="preset-label">预设:</span>
+          <button class="chip" data-model="deepseek-flash">deepseek-flash</button>
           <button class="chip" data-model="deepseek-chat">deepseek-chat (V3)</button>
           <button class="chip" data-model="deepseek-reasoner">deepseek-reasoner (R1)</button>
         </div>
@@ -90,6 +91,7 @@
       <div class="field">
         <label for="set-temperature">温度 <span id="temp-val" class="temp-val">0.7</span></label>
         <input id="set-temperature" type="range" min="0" max="2" step="0.1" value="0.7" />
+        <small class="field-hint">值越低回答越稳定严谨,越高越随机有创意(默认 0.7)</small>
       </div>
       <div class="field">
         <label for="set-max-tokens">最大输出长度 (max_tokens)</label>

@@ -11,7 +11,7 @@
   const DEFAULT_CONFIG = {
     baseUrl: 'https://api.deepseek.com',
     apiKey: '',
-    model: 'deepseek-chat',
+    model: 'deepseek-flash',
     temperature: 0.7,
     systemPrompt: '你是一个乐于助人的助手。',
     maxTokens: 4096,

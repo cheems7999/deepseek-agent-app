@@ -25,14 +25,12 @@
     el.maxTokens.value = cfg.maxTokens || '';
     el.system.value = cfg.systemPrompt || '';
     el.testResult.hidden = true;
-    el.modal.hidden = false;
-    el.backdrop.hidden = false;
+    el.modal.classList.add('show');
     el.backdrop.classList.add('show');
   }
 
   function close() {
-    el.modal.hidden = true;
-    el.backdrop.hidden = true;
+    el.modal.classList.remove('show');
     el.backdrop.classList.remove('show');
   }
 
@@ -72,7 +70,7 @@
   }
 
   function bind() {
-    document.getElementById('btn-close-settings').addEventListener('click', close);
+    document.getElementById('btn-close-settings-modal').addEventListener('click', close);
     document.getElementById('btn-save-settings').addEventListener('click', save);
     document.getElementById('btn-test').addEventListener('click', test);
     el.backdrop.addEventListener('click', close);

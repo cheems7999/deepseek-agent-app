@@ -219,7 +219,8 @@ body {
 .composer-hint { font-size: 12px; color: var(--text-dim); padding: 4px 4px 0; min-height: 16px; }
 
 /* ===== 弹窗 ===== */
-.backdrop { position: fixed; inset: 0; background: rgba(0,0,0,.4); z-index: 40; }
+.backdrop { position: fixed; inset: 0; background: rgba(0,0,0,.4); z-index: 40; display: none; }
+.backdrop.show { display: block; }
 .modal {
   position: fixed; z-index: 50;
   left: 50%; top: 50%; transform: translate(-50%, -50%);
@@ -229,9 +230,10 @@ body {
   border: 1px solid var(--border);
   border-radius: 16px;
   box-shadow: 0 10px 40px rgba(0,0,0,.25);
-  display: flex; flex-direction: column;
+  display: none; flex-direction: column;
   overflow: hidden;
 }
+.modal.show { display: flex; }
 .modal-head { display: flex; align-items: center; justify-content: space-between; padding: 16px 18px; border-bottom: 1px solid var(--border); }
 .modal-head h2 { font-size: 18px; }
 .modal-body { padding: 18px; overflow-y: auto; }
@@ -257,6 +259,7 @@ body {
 #btn-toggle-key { margin-top: 8px; }
 .modal-actions { display: flex; gap: 10px; margin-top: 8px; }
 .modal-actions .btn { flex: 1; }
+.close-btn { margin-top: 10px; }
 .test-result { margin-top: 12px; font-size: 13px; padding: 10px 12px; border-radius: 10px; }
 .test-result.ok { background: rgba(34,197,94,.12); color: #16a34a; }
 .test-result.err { background: rgba(229,72,77,.12); color: var(--danger); }

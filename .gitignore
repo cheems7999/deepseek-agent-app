@@ -13,6 +13,5 @@ android/local.properties
 # Capacitor 同步产物(CI 里 cap sync 重新生成)
 android/app/src/main/assets/public/
 
-# 系统文件
-.DS_Store
-Thumbs.db
+# 本地下载产物
+/dist/

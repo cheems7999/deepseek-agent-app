@@ -40,15 +40,15 @@ jobs:
       - name: Sync Capacitor (copy web assets + plugins)
         run: npx cap sync android
 
-      - name: Build debug APK
+      - name: Build release APK (固定签名)
         working-directory: android
         run: |
           chmod +x gradlew
-          ./gradlew assembleDebug --no-daemon
+          ./gradlew assembleRelease --no-daemon
 
       - name: Upload APK artifact
         uses: actions/upload-artifact@v4
         with:
           name: deepseek-agent-apk
-          path: android/app/build/outputs/apk/debug/app-debug.apk
+          path: android/app/build/outputs/apk/release/app-release.apk
           if-no-files-found: error

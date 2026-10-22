@@ -116,12 +116,10 @@
   const sidebarBackdrop = document.getElementById('sidebar-backdrop');
   function openSidebar() {
     sidebar.classList.add('open');
-    sidebarBackdrop.hidden = false;
     sidebarBackdrop.classList.add('show');
   }
   function closeSidebar() {
     sidebar.classList.remove('open');
-    sidebarBackdrop.hidden = true;
     sidebarBackdrop.classList.remove('show');
   }
 
